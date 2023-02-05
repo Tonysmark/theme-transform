@@ -1,0 +1,21 @@
+{
+  "include": [
+    "src",
+  ],
+  "compilerOptions": {
+    "module": "commonjs",
+    "baseUrl": "./",
+    "target": "es6",
+    "sourceMap": true,
+    "lib": [
+      "es5",
+      "es6"
+    ],
+    "esModuleInterop": true,
+    "paths": {
+      "*": [
+        "src/*"
+      ]
+    }
+  }
+}
