@@ -6,7 +6,7 @@ export const hexColorRegex = /#[a-fA-F0-9]{3,8}/;
 export const rgbOrRgbaColorRegex = /rgb\(.*?\)|rgba\(.*?\)/;
 
 export const getFileColors = () => {
-    glob(path.join(__dirname, '../../app_hybrid_v10/src/**/*.*(vue|css|less|scss)'), { windowsPathsNoEscape: true }, async (err, matchedPath) => {
+    glob(path.join(__dirname, '../../app_hybrid_v10/src/**/*.*(vue|css|less|scss)'), (err, matchedPath) => {
         console.log('total files: ' + matchedPath.length);
         const matchedColorSet = matchedPath.reduce((acc, cur) => {
             const data = readFileSync(path.resolve(cur));

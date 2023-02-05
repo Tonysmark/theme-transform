@@ -1,0 +1,41 @@
+$theme-map: (
+    '#333':'#e0e0e0',
+    '#666':'#a0a0a0',
+    '#999':'#6c6c6c',
+    '#ccc':'#666',
+    '#ddd':'#333',
+    '#e62828':'#f04848',
+    '#f04848':'#fe7256',
+    '#f5f5f5':'#121212',
+    '#fff':'#222'
+);
+
+@function str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+
+    @if $index {
+        @return str-slice($string, 1, $index - 1)+$replace +str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+
+    @return $string;
+}
+
+body[data-theme=light] {
+
+    @each $key,
+    $value in $theme-map {
+        $_key: str-replace($key, '#');
+
+        --color-#{$_key}: #{$key};
+    }
+}
+
+body[data-theme=dark] {
+
+    @each $key,
+    $value in $theme-map {
+        $_key: str-replace($key, '#');
+
+        --color-#{$_key}: #{$value};
+    }
+}
