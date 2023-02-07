@@ -4,11 +4,12 @@ import fs from 'fs';
 import { hexColorRegex, rgbOrRgbaColorRegex, rgb2hex } from './util';
 
 glob(path.join(__dirname, '../../app_hybrid_v10/src/**/*.*(vue|css|less|scss)'), (err, matchedPath) => {
+    if (err) throw err;
     matchedPath.forEach((filePath) => {
         const fileName = path.basename(filePath);
         fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
             if (err) throw err;
-            // change rgb to hex before replace hex color
+            // change rgb to hex before replace it to css variable
             const replacedData = data
                 .replace(new RegExp(rgbOrRgbaColorRegex, 'ig'), (matchedColor) => {
                     if (matchedColor) {

@@ -12,6 +12,7 @@
       "es6"
     ],
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "paths": {
       "*": [
         "src/*"
