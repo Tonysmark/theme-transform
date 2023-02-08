@@ -1,0 +1,18 @@
+html {
+
+    @each $key,
+    $value in $theme-map {
+        --color-#{$key}: #{map-get($value, "light")};
+    }
+}
+
+html[data-theme-color="dark"] {
+    img {
+        filter: brightness(0.9);
+    }
+
+    @each $key,
+    $value in $theme-map {
+        --color-#{$key}: #{map-get($value, "dark")};
+    }
+}
