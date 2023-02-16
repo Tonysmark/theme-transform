@@ -5,11 +5,29 @@ import { hexColorRegex } from './util';
 import { write2log } from './write2log';
 
 export const strictRegex = /#[a-fA-F0-9]{3,8}|rgba?\((\d{0,3})\s*,\s*(\d{0,3})\s*,\s*(\d{0,3})\s*,?\s*([\.\d]+?)?\)/gm;
- const planRegex = /#[a-fA-F0-9]{3,8}|rgb\(.*?\)|rgba\(.*?\)/gi
+const planRegex = /#[a-fA-F0-9]{3,8}|rgb\(.*?\)|rgba\(.*?\)/gi;
 
 const getJsonData = (matchedColorSet: Set<string>) => {
     const json2ExcelData = Array.from<string>(matchedColorSet)
-        .map((item) => ({ raw: item }))
+        .map((item) => {
+            if (item.match(new RegExp(hexColorRegex, 'gm'))) {
+                return {
+                    raw: item,
+                    dark: null,
+                    variable: `--color-${item.replace('#', '').toLowerCase()}`,
+                };
+            } else {
+                return {
+                    raw: item,
+                    dark: null,
+                    variable: `--color-${item
+                        .replace(/^rgba?\(|\s+|\)$/g, '')
+                        .split(',')
+                        .map((item) => item.replace('.', ''))
+                        .join('-')}`,
+                };
+            }
+        })
         .sort((prev, next) => prev.raw.localeCompare(next.raw));
 
     write2log('sorted-colors.json', JSON.parse(JSON.stringify(json2ExcelData, null, 4)));
