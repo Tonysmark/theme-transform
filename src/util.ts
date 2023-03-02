@@ -87,14 +87,17 @@ export const shortHandHexColor = (color: string) => {
 };
 
 export const generateCssVariables = (color: string) => {
-    if (color.match(new RegExp(hexColorRegex, 'gm'))) {
-        return `var(--color-${color.replace('#', '')})`;
+    // var(--color-fbfbf0, #fbfbf0)
+    // 第一个变量如果找不到，就将这一条属性值转为第二个参数
+    if (color.match(new RegExp(hexColorRegex, 'gm'))) { 
+        return `var(--color-${color.replace('#', '')}, ${color})`;
     } else {
         // 剩下的就是 rgb rgba 这类数据了
-        return `var(--color-${color
+        const rgbColorStr = color
             .replace(/^rgba?\(|\s+|\)$/g, '')
             .split(',')
             .map((item) => item.replace('.', ''))
-            .join('-')})`;
+            .join('-');
+        return `var(--color-${rgbColorStr}, ${color})`;
     }
 };

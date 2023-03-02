@@ -86,5 +86,5 @@ glob(path.join(__dirname, '../../app_hybrid_v10/src/**/*.*(vue|css|less|scss)'),
 
     getJsonData(matchedColorSet);
 
-    // getSassData(matchedColorSet);
+    getSassData(matchedColorSet);
 });

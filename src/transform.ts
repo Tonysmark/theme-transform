@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import { hexColorRegex,strictRgbaReg, convertRgbaColors, convertHexColors, shortHandHexColor, generateCssVariables } from './util';
 
-glob(path.join(__dirname, '../../z-damo/src/packages/**/src/*.*(vue|css|less|scss)'), (err, matchedPath) => {
+glob(path.join(__dirname, '../../app_hybrid_v10/src/**/*.*(vue|css|less|scss)'), (err, matchedPath) => {
     if (err) throw err;
     // 1. 把 rgba 但是透明度是 0 的 直接换成 transparent 如 rgba(255, 255, 255, 0) => transparent
     // 2. 把 rgba 但是透明度是 1 的 直接换成 rgb 如 rgba(255, 255, 255, 1) => rgb(255, 255, 255)
@@ -24,7 +24,6 @@ glob(path.join(__dirname, '../../z-damo/src/packages/**/src/*.*(vue|css|less|scs
                 .replace(new RegExp(hexColorRegex, 'ig'), (matchedColor) => matchedColor.toLowerCase())
                 .replace(new RegExp(strictRgbaReg, 'ig'), (matchedColor) => generateCssVariables(matchedColor))
                 .replace(new RegExp(hexColorRegex, 'ig'), (matchedColor) => generateCssVariables(matchedColor));
-            
             
             fs.writeFile(filePath, replacedData, (err) => {
                 if (err) throw err;
