@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "transform": "ts-node src/transform.ts",
+        "addFallback": "ts-node src/addCssFallback.ts",
         "count:colors": "ts-node src/grabProjectColors.ts",
         "count:images": "ts-node src/grabImagePaths.ts",
         "test": "ts-node src/main.ts"

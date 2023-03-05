@@ -3,6 +3,7 @@ import { readFileSync } from 'fs';
 import glob from 'glob';
 import { hexColorRegex } from './util';
 import { write2log } from './write2log';
+import { entry } from 'config';
 
 export const strictRegex = /#[a-fA-F0-9]{3,8}|rgba?\((\d{0,3})\s*,\s*(\d{0,3})\s*,\s*(\d{0,3})\s*,?\s*([\.\d]+?)?\)/gm;
 const planRegex = /#[a-fA-F0-9]{3,8}|rgb\(.*?\)|rgba\(.*?\)/gi;
@@ -73,7 +74,7 @@ const getSassData = (matchedColorSet: Set<string>) => {
     write2log('theme.scss', `$theme-map: (${scssMapStr});`);
 };
 
-glob(path.join(__dirname, '../../app_hybrid_v10/src/**/*.*(vue|css|less|scss)'), (err, matchedPath) => {
+glob(entry, (err, matchedPath) => {
     if (err) throw err;
     const matchedColorSet = matchedPath.reduce((acc, cur) => {
         const dataString = readFileSync(path.resolve(cur)).toString();
