@@ -7,7 +7,11 @@ const cssVariableRuleRex = /(?:var).?(--color-.*?)(?:,?)\)/g;
 const rgbVariable2RgbColor = (str) => {
     const [r, g, b, a] = str.split('-');
     if (a) {
-        return `rgba(${r}, ${g}, ${b}, ${a})`;
+        let _a = a;
+        if (String(a).indexOf('0') === 0) {
+            _a = `0.${_a.slice(1)}`;
+        }
+        return `rgba(${r}, ${g}, ${b}, ${_a})`;
     }
     return `rgb(${r}, ${g}, ${b})`;
 };
