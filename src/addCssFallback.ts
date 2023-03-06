@@ -17,6 +17,7 @@ const rgbVariable2RgbColor = (str) => {
 };
 const swapColorStrategy = (color: string): string => {
     const caseLen = color.split('-').length;
+    if(color.match('transparent')) return `transparent`;
     if (caseLen == 1) {
         return `#${color}`;
     }
